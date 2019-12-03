@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Employees</title>
+<link rel="stylesheet" type="text/css" href="static/employees.css?v=2">
+{% endblock %}
+
+{% block content %}
+<table class="content-table">
+    <tr>
+        {% for element in table_data[0] %}
+            <th>{{ element }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in table_data[1:] %}
+        <tr>
+        {% for element in row %}
+            <td>{{ element }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
