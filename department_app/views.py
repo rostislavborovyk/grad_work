@@ -44,3 +44,8 @@ def employees():
     table_data = [[str(j) for j in i] for i in data_query.fetchall()]
     table_head.extend(table_data)
     return render_template('employees.html', table_data=table_head, form=bday_search_form)
+
+
+@app.route('/add_employee')
+def add_employee():
+    return '<h1>Add employee page</h1>'
