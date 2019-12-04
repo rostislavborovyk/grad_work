@@ -6,6 +6,14 @@
 {% endblock %}
 
 {% block content %}
+<div>
+    <form method="POST" action="">
+        {{ form.date_from.label }} {{ form.date_from(placeholder="yyyy-mm-dd") }}
+        {{ form.date_to.label }} {{ form.date_to(placeholder="yyyy-mm-dd") }}
+        <input type="submit"  value="Search">
+        {{ form.csrf_token }}
+    </form>
+</div>
 <table class="content-table">
     <tr>
         {% for element in table_data[0] %}
