@@ -1,7 +1,7 @@
 from . import app
 from flask import render_template, redirect, url_for
 from .models import db
-from .forms import BirthDaySearchForm
+from .forms import BirthDaySearchForm, AddEmployeeForm
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -43,9 +43,12 @@ def employees():
         )
     table_data = [[str(j) for j in i] for i in data_query.fetchall()]
     table_head.extend(table_data)
-    return render_template('employees.html', table_data=table_head, form=bday_search_form)
+    return render_template('employees/employees.html', table_data=table_head, form=bday_search_form)
 
 
 @app.route('/add_employee')
 def add_employee():
-    return '<h1>Add employee page</h1>'
+    add_employee_form = AddEmployeeForm()
+    if add_employee_form.validate_on_submit():
+        print("Form is valid")
+    return render_template('employees/add_employee.html', form=add_employee_form)

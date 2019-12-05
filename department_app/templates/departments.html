@@ -5,6 +5,14 @@
 <link rel="stylesheet" type="text/css" href="static/css/departments.css?v=11">
 {% endblock %}
 
+{% block navbar %}
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/departments" class="active-btn">Departments</a></li>
+    <li><a href="/employees">Employees</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 <table class="content-table">
     <tr>

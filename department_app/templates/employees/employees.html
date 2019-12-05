@@ -2,7 +2,15 @@
 
 {% block head %}
 <title>Employees</title>
-<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=28">
+<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=36">
+{% endblock %}
+
+{% block navbar %}
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/departments">Departments</a></li>
+    <li><a href="/employees" class="active-btn">Employees</a></li>
+</ul>
 {% endblock %}
 
 {% block content %}
@@ -13,6 +21,8 @@
         <input type="submit" class="form-button" value="Search">
         {{ form.csrf_token }}
         <a href="/add_employee"><input id="add-employee" class="form-button" type="button" value="Add"></a>
+        <a href="/add_employee"><input id="update-employee" class="form-button" type="button" value="Update"></a>
+        <a href="/add_employee"><input id="delete-employee" class="form-button" type="button" value="Delete"></a>
     </form>
 </div>
 <table class="content-table">
@@ -30,3 +40,4 @@
     {% endfor %}
 </table>
 {% endblock %}
+

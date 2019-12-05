@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="static/css/layout.css?v=12">
+    <link rel="stylesheet" type="text/css" href="static/css/layout.css?v=15">
     {% block head %}{% endblock %}
 </head>
 <body>
 <div class="navbar">
-    <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/departments">Departments</a></li>
-    <li><a href="/employees">Employees</a></li>
-    </ul>
+    {% block navbar %}{% endblock %}
+
 </div>
 {% block content %}{% endblock %}
 

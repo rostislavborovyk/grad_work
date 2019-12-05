@@ -30,9 +30,38 @@
 }
 
 #add-employee {
-  background-color: #d8be7e;
+  background-color: #f9a602;
 }
 
 #add-employee:hover {
-  background-color: #b8ae6e;
+  background-color: #e99602;
+}
+
+#update-employee {
+  background-color: #04f;
+}
+
+#update-employee:hover {
+  background-color: #03e;
+}
+
+#delete-employee {
+  background-color: #991a00;
+}
+
+#delete-employee:hover {
+  background-color: #881a00;
+}
+
+#add-employee-form {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 100px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+#add-employee-form input {
+  width: 100%;
 }

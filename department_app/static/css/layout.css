@@ -68,3 +68,8 @@ body {
 .content-table tr td {
   padding-left: 20px;
 }
+
+.active-btn {
+  background-color: #222;
+  color: white;
+}
