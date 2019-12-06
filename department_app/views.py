@@ -2,6 +2,7 @@ from . import app
 from flask import render_template, redirect, url_for
 from .models import db
 from .forms import BirthDaySearchForm, AddEmployeeForm
+import requests
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -46,9 +47,18 @@ def employees():
     return render_template('employees/employees.html', table_data=table_head, form=bday_search_form)
 
 
-@app.route('/add_employee')
+@app.route('/add_employee', methods=['POST', 'GET'])
 def add_employee():
     add_employee_form = AddEmployeeForm()
     if add_employee_form.validate_on_submit():
-        print("Form is valid")
+        name = add_employee_form.name.data
+        birth_date = add_employee_form.birth_date.data
+        department = add_employee_form.department.data
+        salary = add_employee_form.salary.data
+        data = {"name": name, "department": department, "salary": salary, "birth_date": birth_date}
+        # todo change api address to real host address
+        response = requests.post(url="http://localhost:5001/employees/api", json=data)
+        if response.status_code == 400:
+            return render_template('employees/add_employee.html', form=add_employee_form, invalid_data=True)
+        return redirect(url_for('.employees'))
     return render_template('employees/add_employee.html', form=add_employee_form)

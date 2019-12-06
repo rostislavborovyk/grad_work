@@ -2,7 +2,7 @@
 
 {% block head %}
 <title>Add employee</title>
-<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=38">
+<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=43">
 {% endblock %}
 
 {% block navbar %}
@@ -14,13 +14,22 @@
 {% endblock %}
 
 {% block content %}
+
 <div id="add-employee-form">
+    {% if invalid_data %}
+    <div class="invalid-data-msg">
+        <h1>Invalid data, form wasn't submitted</h1>
+    </div>
+    {% endif %}
     <form method="POST" action="">
         {{ form.name.label(class="form-label") }} {{ form.name(placeholder="NameSurname", class="form-input") }}
-        {{ form.department.label(class="form-label") }} {{ form.department(placeholder="Id of department", class="form-input") }}
-        {{ form.salary.label(class="form-label") }} {{ form.salary(placeholder="Employee's salary, integer value", class="form-input") }}
-        {{ form.birth_date.label(class="form-label") }} {{ form.birth_date(placeholder="yyyy-mm-dd", class="form-input") }}
-        <input type="submit" class="form-button" value="Add">
+        {{ form.department.label(class="form-label") }} {{ form.department(placeholder="Id of department",
+        class="form-input") }}
+        {{ form.salary.label(class="form-label") }} {{ form.salary(placeholder="Employee's salary, integer value",
+        class="form-input") }}
+        {{ form.birth_date.label(class="form-label") }} {{ form.birth_date(placeholder="yyyy-mm-dd", class="form-input")
+        }}
+        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Add">
         {{ form.csrf_token }}
     </form>
 </div>

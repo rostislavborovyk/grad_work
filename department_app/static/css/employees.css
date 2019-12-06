@@ -65,3 +65,8 @@
 #add-employee-form input {
   width: 100%;
 }
+
+#add-employee-submit-btn{
+  margin-left: 0;
+}
+
