@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Delete employee</title>
+<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=43">
+{% endblock %}
+
+{% block navbar %}
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/departments">Departments</a></li>
+    <li><a href="/employees">Employees</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<div id="add-employee-form">
+    {% if invalid_data %}
+    <div class="invalid-data-msg">
+        <h1>Invalid data, form wasn't submitted</h1>
+    </div>
+    {% endif %}
+    <form method="POST" action="">
+        <h2>Delete employee</h2>
+        {{ form.id.label(class="form-label") }} {{ form.id(placeholder="Employee id", class="form-input") }}
+        {{ form.csrf_token }}
+        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Add">
+    </form>
+</div>
+{% endblock %}
+

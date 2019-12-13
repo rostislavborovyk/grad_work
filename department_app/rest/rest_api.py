@@ -1,7 +1,7 @@
 from department_app import api, db
 from flask_restful import Resource, reqparse, abort
 from flask import jsonify
-from department_app.models import Employee, Department
+import department_app.models as models
 import re
 import datetime
 
@@ -12,13 +12,21 @@ parser.add_argument('salary', type=int)
 parser.add_argument('birth_date', type=str)
 
 
-class EmployeeApi(Resource):
-    def get(self):
-        pass
+class Employee(Resource):
+    def get(self, employee_id):
+        employee = models.Employee.query.filter(models.Employee.id == employee_id).first()
+        birth_date = f"{employee.birth_date.year}-{employee.birth_date.month}-{employee.birth_date.day}"
+        response = jsonify(id=employee.id,
+                           name=employee.name,
+                           department_id=employee.department_id,
+                           salary=employee.salary,
+                           birth_date=birth_date)
+        response.status_code = 201
+        return response
 
     def post(self):
         args = parser.parse_args()
-        if not list(Department.query.filter(Department.id == args['department'])):
+        if not list(models.Department.query.filter(models.Department.id == args['department'])):
             abort(400)
         if args['salary'] < 0:
             abort(400)
@@ -30,7 +38,7 @@ class EmployeeApi(Resource):
         else:
             abort(400)
 
-        employee = Employee(
+        employee = models.Employee(
             args['name'],
             args['department'],
             args['salary'],
@@ -42,11 +50,18 @@ class EmployeeApi(Resource):
         response.status_code = 201
         return response
 
-    def put(self):
+    def put(self, employee_id):
         pass
 
-    def delete(self):
-        pass
+    def delete(self, employee_id):
+        employee = db.session.query(models.Employee).filter(models.Employee.id == employee_id)
+        if not employee.first():
+            abort(400)
+        employee.delete()
+        db.session.commit()
+        response = jsonify(message="Employee was removed successfully!")
+        response.status_code = 201
+        return response
 
 
-api.add_resource(EmployeeApi, '/employees/api')
+api.add_resource(Employee, '/employees/api', '/employees/api/<int:employee_id>')

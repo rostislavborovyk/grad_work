@@ -1,7 +1,7 @@
 from . import app
 from flask import render_template, redirect, url_for
 from .models import db
-from .forms import BirthDaySearchForm, AddEmployeeForm
+from .forms import BirthDaySearchForm, AddEmployeeForm, DeleteEmployeeForm
 import requests
 
 
@@ -56,9 +56,22 @@ def add_employee():
         department = add_employee_form.department.data
         salary = add_employee_form.salary.data
         data = {"name": name, "department": department, "salary": salary, "birth_date": birth_date}
-        # todo change api address to real host address
-        response = requests.post(url="http://localhost:5001/employees/api", json=data)
+        response = requests.post(url="http://localhost:5000/employees/api", json=data)
         if response.status_code == 400:
             return render_template('employees/add_employee.html', form=add_employee_form, invalid_data=True)
-        return redirect(url_for('.employees'))
+        return redirect(url_for('employees'))
     return render_template('employees/add_employee.html', form=add_employee_form)
+
+
+@app.route('/delete_employee', methods=['POST', 'GET'])
+def delete_employee():
+    delete_employee_form = DeleteEmployeeForm()
+    if delete_employee_form.validate_on_submit():
+        employee_id = delete_employee_form.id.data
+        response = requests.delete(f"http://localhost:5000/employees/api/{employee_id}")
+        if response.status_code == 400:
+            return render_template('employees/delete_employee.html', form=delete_employee_form,
+                                   invalid_data=True)
+        return redirect(url_for('employees'))
+
+    return render_template('employees/delete_employee.html', form=delete_employee_form)

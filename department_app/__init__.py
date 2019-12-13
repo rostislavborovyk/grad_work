@@ -12,4 +12,3 @@ db = SQLAlchemy(app)
 
 # flask restful api
 api = Api(app)
-

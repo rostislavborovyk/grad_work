@@ -48,4 +48,7 @@ class Employee(db.Model):
 # for migrations
 if __name__ == '__main__':
     manager.run()
-    # pass
+    # employee = db.session.query(Employee).filter(Employee.id == 30)
+    # print(employee.first())
+    # db.session.commit()
+

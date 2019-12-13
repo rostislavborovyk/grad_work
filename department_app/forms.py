@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import DateField, ValidationError, StringField
+from wtforms import DateField, ValidationError, StringField, IntegerField
 from wtforms.validators import DataRequired
 
 
@@ -13,3 +13,7 @@ class AddEmployeeForm(Form):
     department = StringField('Department', validators=[DataRequired()])
     salary = StringField('Salary', validators=[DataRequired()])
     birth_date = StringField('Birth Date', validators=[DataRequired()])
+
+
+class DeleteEmployeeForm(Form):
+    id = IntegerField('Id', validators=[DataRequired()])
