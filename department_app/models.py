@@ -1,7 +1,8 @@
-from department_app import app
-from department_app import db
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+
+from department_app import app
+from department_app import db
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -39,18 +40,8 @@ class Employee(db.Model):
         return f"Employee(id={self.id}, name={self.name})"
 
 
-# db.create_all()
-# new_employee = Employee('DineshChugtai', 3, 3500, "1983-01-20")
-# db.session.add(new_employee)
-# db.session.commit()
-
-# SELECT (SELECT AVG(salary) FROM employee WHERE department = d.id) FROM department d
 # for migrations
 if __name__ == '__main__':
     manager.run()
-    # data_query = db.session.query(Employee, Department).join(Department, Employee.department_id == Department.id).\
-    #     filter(Employee.birth_date >= '2000-10-08').filter(Employee.birth_date <= '2000-10-08').\
-    #     from_self(Employee.name, Department.name, Employee.salary, Employee.birth_date)
-    # table_data = [i for i in data_query]
-    # print(table_data)
+
 

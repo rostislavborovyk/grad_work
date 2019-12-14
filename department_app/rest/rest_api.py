@@ -1,9 +1,12 @@
-from department_app import api, db
-from flask_restful import Resource, reqparse, abort
-from flask import jsonify
-import department_app.models as models
 import re
 import datetime
+
+from flask_restful import Resource, reqparse, abort
+from flask import jsonify
+
+from department_app import api, db
+import department_app.models as models
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)

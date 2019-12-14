@@ -1,8 +1,9 @@
-from . import app
+import requests
 from flask import render_template, redirect, url_for
+
+from . import app
 from .models import db, Department, Employee
 from .forms import BirthDaySearchForm, AddEmployeeForm, DeleteEmployeeForm, UpdateEmployeeForm
-import requests
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -32,9 +33,9 @@ def employees():
         date_to = bday_search_form.date_to.data
         if (date_to - date_from).days < 0:
             return redirect(url_for('.employees'))
-        data_query = db.session.query(Employee, Department)\
-            .join(Department, Employee.department_id == Department.id)\
-            .filter(Employee.birth_date >= str(date_from)).filter(Employee.birth_date <= str(date_to))\
+        data_query = db.session.query(Employee, Department) \
+            .join(Department, Employee.department_id == Department.id) \
+            .filter(Employee.birth_date >= str(date_from)).filter(Employee.birth_date <= str(date_to)) \
             .from_self(Employee.name, Department.name, Employee.salary, Employee.birth_date)
         table_data = [i for i in data_query]
 
@@ -74,7 +75,6 @@ def delete_employee():
             return render_template('employees/delete_employee.html', form=delete_employee_form,
                                    invalid_data=True)
         return redirect(url_for('employees'))
-
     return render_template('employees/delete_employee.html', form=delete_employee_form)
 
 

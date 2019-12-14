@@ -1,7 +1,6 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm as Form
 from wtforms import DateField, ValidationError, StringField, IntegerField
 from wtforms.validators import DataRequired, Regexp
-import re
 
 
 class BirthDaySearchForm(Form):
