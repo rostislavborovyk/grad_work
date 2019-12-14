@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block head %}
-<title>Add employee</title>
+<title>Update employee</title>
 <link rel="stylesheet" type="text/css" href="static/css/employees.css?v=44">
 {% endblock %}
 
@@ -22,6 +22,9 @@
     </div>
     {% endif %}
     <form method="POST" action="">
+        <h2>Please write employee's id</h2>
+        {{ form.id.label(class="form-label") }} {{ form.id(placeholder="Employee id", class="form-input") }}
+        <h2>Write the fields which you want to change</h2>
         {{ form.name.label(class="form-label") }} {{ form.name(placeholder="NameSurname", class="form-input") }}
         {{ form.department.label(class="form-label") }} {{ form.department(placeholder="Id of department",
         class="form-input") }}
@@ -29,7 +32,7 @@
         class="form-input") }}
         {{ form.birth_date.label(class="form-label") }} {{ form.birth_date(placeholder="yyyy-mm-dd", class="form-input")
         }}
-        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Add">
+        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Update">
         {{ form.csrf_token }}
     </form>
 </div>

@@ -48,7 +48,9 @@ class Employee(db.Model):
 # for migrations
 if __name__ == '__main__':
     manager.run()
-    # employee = db.session.query(Employee).filter(Employee.id == 30)
-    # print(employee.first())
-    # db.session.commit()
+    # data_query = db.session.query(Employee, Department).join(Department, Employee.department_id == Department.id).\
+    #     filter(Employee.birth_date >= '2000-10-08').filter(Employee.birth_date <= '2000-10-08').\
+    #     from_self(Employee.name, Department.name, Employee.salary, Employee.birth_date)
+    # table_data = [i for i in data_query]
+    # print(table_data)
 

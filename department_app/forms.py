@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import DateField, ValidationError, StringField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Regexp
+import re
 
 
 class BirthDaySearchForm(Form):
@@ -17,3 +18,11 @@ class AddEmployeeForm(Form):
 
 class DeleteEmployeeForm(Form):
     id = IntegerField('Id', validators=[DataRequired()])
+
+
+class UpdateEmployeeForm(Form):
+    name = StringField('Name', validators=[])
+    department = StringField('Department', validators=[])
+    salary = StringField('Salary', validators=[])
+    birth_date = StringField('Birth Date', validators=[])
+    id = IntegerField('Id', validators=[])

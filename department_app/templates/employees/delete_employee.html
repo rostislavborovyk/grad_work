@@ -2,7 +2,7 @@
 
 {% block head %}
 <title>Delete employee</title>
-<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=43">
+<link rel="stylesheet" type="text/css" href="static/css/employees.css?v=44">
 {% endblock %}
 
 {% block navbar %}
@@ -25,7 +25,7 @@
         <h2>Delete employee</h2>
         {{ form.id.label(class="form-label") }} {{ form.id(placeholder="Employee id", class="form-input") }}
         {{ form.csrf_token }}
-        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Add">
+        <input type="submit" class="form-button" id="add-employee-submit-btn" value="Delete">
     </form>
 </div>
 {% endblock %}

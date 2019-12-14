@@ -12,7 +12,7 @@ parser.add_argument('salary', type=int)
 parser.add_argument('birth_date', type=str)
 
 
-class Employee(Resource):
+class EmployeeApi(Resource):
     def get(self, employee_id):
         employee = models.Employee.query.filter(models.Employee.id == employee_id).first()
         birth_date = f"{employee.birth_date.year}-{employee.birth_date.month}-{employee.birth_date.day}"
@@ -51,7 +51,14 @@ class Employee(Resource):
         return response
 
     def put(self, employee_id):
-        pass
+        args = parser.parse_args()
+        employee = db.session.query(models.Employee).filter(models.Employee.id == employee_id)
+        new_data = {i[0]: i[1] for i in args.items() if i[1]}  # filter out values that are not set
+        employee.update(new_data, synchronize_session=False)
+        db.session.commit()
+        response = jsonify(message="Employee was updated successfully!")
+        response.status_code = 201
+        return response
 
     def delete(self, employee_id):
         employee = db.session.query(models.Employee).filter(models.Employee.id == employee_id)
@@ -64,4 +71,4 @@ class Employee(Resource):
         return response
 
 
-api.add_resource(Employee, '/employees/api', '/employees/api/<int:employee_id>')
+api.add_resource(EmployeeApi, '/employees/api', '/employees/api/<int:employee_id>')
