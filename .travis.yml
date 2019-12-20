@@ -2,5 +2,4 @@ language: python
 python:
   - "3.7"
 
-before_script: python3 wsgi.py
-script: department_app/tests/api_test.py
+script: department_app/tests/unit_test.py
