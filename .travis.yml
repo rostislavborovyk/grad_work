@@ -2,4 +2,4 @@ language: python
 python:
   - "3.7"
 
-script: python3 department_app/tests/unit_test.py
+script: python3 department_app/tests/unit_tests.py
