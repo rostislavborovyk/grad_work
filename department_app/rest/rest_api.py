@@ -29,16 +29,22 @@ class EmployeeApi(Resource):
 
     def post(self):
         args = parser.parse_args()
+        print(args)
         if not list(models.Department.query.filter(models.Department.id == args['department'])):
+            print("reason 1")
             abort(400)
         if args['salary'] < 0:
+            print("reason 2")
             abort(400)
         if re.fullmatch(re.compile(r'\d{4}-\d\d-\d\d'), args['birth_date']):  # if date like yyyy-mm-dd
             try:
                 datetime.date(*map(int, str(args['birth_date']).split('-')))
             except ValueError:
+                print("reason 3")
                 abort(400)
         else:
+            print("reason 4")
+
             abort(400)
 
         employee = models.Employee(
