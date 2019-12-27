@@ -1,3 +1,7 @@
+"""
+Models module, contains 2 main app models: Department, Employee
+"""
+
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
@@ -43,5 +47,3 @@ class Employee(db.Model):
 # for migrations
 if __name__ == '__main__':
     manager.run()
-
-

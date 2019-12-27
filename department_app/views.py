@@ -1,3 +1,7 @@
+"""
+Views class contains main logic of processing the client requests
+"""
+
 import requests
 from flask import render_template, redirect, url_for
 
@@ -8,11 +12,19 @@ from .forms import BirthDaySearchForm, AddEmployeeForm, DeleteEmployeeForm, Upda
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    Main page
+    :return: rendered html file
+    """
     return render_template('index.html')
 
 
 @app.route('/departments', methods=['GET', 'POST'])
 def departments():
+    """
+    Department's page
+    :return: Page with list of all departments
+    """
     table_head = [("Department name", "Number of employees", "Average salary")]
     data_query = db.session.execute(
         "SELECT d.name, (SELECT COUNT(*) FROM employee e WHERE e.department_id = d.id),"
@@ -25,6 +37,10 @@ def departments():
 
 @app.route('/employees', methods=['GET', 'POST'])
 def employees():
+    """
+    Employee's page
+    :return: Page with list of all employees
+    """
     table_head = [("Name", "Department", "Salary", "Birth date")]
 
     bday_search_form = BirthDaySearchForm()
@@ -51,6 +67,10 @@ def employees():
 
 @app.route('/add_employee', methods=['POST', 'GET'])
 def add_employee():
+    """
+    Page with AddEmployeeForm
+    :return: Page with fields for adding employee
+    """
     add_employee_form = AddEmployeeForm()
     if add_employee_form.validate_on_submit():
         name = add_employee_form.name.data
@@ -67,6 +87,10 @@ def add_employee():
 
 @app.route('/delete_employee', methods=['POST', 'GET'])
 def delete_employee():
+    """
+    Page with DeleteEmployeeForm
+    :return: Page with id field for deleting employee with this id
+    """
     delete_employee_form = DeleteEmployeeForm()
     if delete_employee_form.validate_on_submit():
         employee_id = delete_employee_form.id.data
@@ -80,6 +104,11 @@ def delete_employee():
 
 @app.route('/update_employee', methods=['POST', 'GET'])
 def update_employee():
+    """
+    Page with UpdateEmployeeForm
+    :return: Page with fields for updating employee (same fields as in add_employee page),
+    fields which don't need to be changed can be leaved empty
+    """
     update_employee_form = UpdateEmployeeForm()
     if update_employee_form.validate_on_submit():
         data = {

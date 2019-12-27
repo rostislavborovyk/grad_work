@@ -1,3 +1,7 @@
+"""
+Rest api for app, allows to contact with db via api
+"""
+
 import re
 import datetime
 
@@ -16,6 +20,9 @@ parser.add_argument('birth_date', type=str)
 
 
 class EmployeeApi(Resource):
+    """
+    Employee api, implements the crud interface
+    """
     def get(self, employee_id):
         employee = models.Employee.query.filter(models.Employee.id == employee_id).first()
         birth_date = f"{employee.birth_date.year}-{employee.birth_date.month}-{employee.birth_date.day}"
