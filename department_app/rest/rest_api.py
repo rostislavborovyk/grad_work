@@ -2,15 +2,14 @@
 Rest api for app, allows to contact with db via api
 """
 
-import re
 import datetime
+import re
 
 from flask_restful import Resource, reqparse, abort
 from flask import jsonify
 
 from department_app import api, db
 import department_app.models as models
-
 
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)
@@ -23,6 +22,7 @@ class EmployeeApi(Resource):
     """
     Employee api, implements the crud interface
     """
+
     def get(self, employee_id):
         employee = models.Employee.query.filter(models.Employee.id == employee_id).first()
         birth_date = f"{employee.birth_date.year}-{employee.birth_date.month}-{employee.birth_date.day}"
@@ -38,19 +38,15 @@ class EmployeeApi(Resource):
         args = parser.parse_args()
         print(args)
         if not list(models.Department.query.filter(models.Department.id == args['department'])):
-            print("reason 1")
             abort(400)
         if args['salary'] < 0:
-            print("reason 2")
             abort(400)
         if re.fullmatch(re.compile(r'\d{4}-\d\d-\d\d'), args['birth_date']):  # if date like yyyy-mm-dd
             try:
                 datetime.date(*map(int, str(args['birth_date']).split('-')))
             except ValueError:
-                print("reason 3")
                 abort(400)
         else:
-            print("reason 4")
 
             abort(400)
 

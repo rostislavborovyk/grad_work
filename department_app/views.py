@@ -2,8 +2,8 @@
 Views class contains main logic of processing the client requests
 """
 
-import requests
 from flask import render_template, redirect, url_for
+import requests
 
 from . import app
 from .models import db, Department, Employee
@@ -53,14 +53,11 @@ def employees():
             .join(Department, Employee.department_id == Department.id) \
             .filter(Employee.birth_date >= str(date_from)).filter(Employee.birth_date <= str(date_to)) \
             .from_self(Employee.name, Department.name, Employee.salary, Employee.birth_date)
-        table_data = [i for i in data_query]
-
     else:
-        data_query = db.session.execute(
-            "SELECT e.name, d.name, e.salary, e.birth_date FROM employee e"
-            " JOIN department d ON e.department_id = d.id"
-        )
-        table_data = [[str(j) for j in i] for i in data_query.fetchall()]
+        data_query = db.session.query(Employee, Department) \
+            .join(Department, Employee.department_id == Department.id)\
+            .from_self(Employee.name, Department.name, Employee.salary, Employee.birth_date)
+    table_data = [i for i in data_query]
     table_head.extend(table_data)
     return render_template('employees/employees.html', table_data=table_head, form=bday_search_form)
 

@@ -1,9 +1,6 @@
 """
 Unittests for app
 """
-import sys
-
-print(sys.path)
 import unittest
 
 from department_app import app
